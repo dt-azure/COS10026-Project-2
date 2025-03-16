@@ -25,4 +25,4 @@
 /vendors/*
 
 # Ignore settings file
-# settings.php
+settings.php
