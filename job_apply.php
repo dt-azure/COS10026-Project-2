@@ -5,7 +5,7 @@ require_once "util.php";
 
 // Prevent direct access to this file
 if ($_POST["job_ref"] == NULL) {
-    header("Location: apply.html");
+    header("Location: apply.php");
 }
 
 $dbconn = @mysqli_connect($host, $user, $pwd, $sql_db);
@@ -16,46 +16,68 @@ if ($dbconn) {
     $job_ref_num = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["job_ref"]));
     $first_name = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["first_name"]));
     $last_name = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["last_name"]));
-    $dob = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["dob"]));
-    $gender = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["gender"]));
+    $dob = format_date($_POST["dob"]);
+    $gender = preg_replace('/[^A-Za-z0-9 ]/', '', trim($_POST["gender"]));
     $street = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["street_address"]));
     $town = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["suburb_town"]));
     $state = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["state"]));
     $postcode = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["postcode"]));
-    $email = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["email"]));
-    $phone = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["phone"]));
+    $interview_date = format_date($_POST["interview-date"]);
+    $interview_time = preg_replace('/[^A-Za-z0-9: ]/', '', trim($_POST["interview-time"]));
+    $email = preg_replace('/[^A-Za-z0-9@._-]/', '', trim($_POST["email"]));
+    $phone = preg_replace('/[^A-Za-z0-9 ]/', '', trim($_POST["phone"]));
     // Convert array to JSON
     $skills = isset($_POST["skills"]) ? json_encode(sanitize_json_array($_POST["skills"])) : json_encode([]);
     $other_skills = preg_replace('/[^A-Za-z0-9]/', '', trim($_POST["other_skills"]));
 
-    // Dummy query to check if table exists
-    // Try - catch block to catch the error
-    // 1146 is the error code for missing table
-    try {
-        mysqli_query($dbconn, "SELECT 1 FROM eoi LIMIT 1");
-    } catch (mysqli_sql_exception) {
-        if (mysqli_errno($dbconn) == "1146") {
-            mysqli_query($dbconn, "CREATE TABLE eoi (eoi_number INT(11) NOT NULL AUTO_INCREMENT, job_ref_num VARCHAR(10) DEFAULT NULL, 
-        first_name VARCHAR(50) DEFAULT NULL, last_name VARCHAR(50) DEFAULT NULL, street VARCHAR(100) DEFAULT NULL, town VARCHAR(50) DEFAULT NULL, 
-        state VARCHAR(50) DEFAULT NULL, postcode VARCHAR(10) DEFAULT NULL, email VARCHAR(100) DEFAULT NULL, phone VARCHAR(20) DEFAULT NULL, skills LONGTEXT COLLATE utf8mb4_bin DEFAULT NULL, 
-        other_skills TEXT DEFAULT NULL, status ENUM('New', 'Current', 'Final', '') NOT NULL DEFAULT \"New\", PRIMARY KEY (eoi_number));");
+  
+    // Validate input
+    $err_msg = validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $town, $state, $postcode, $email, $phone);
+
+    if (count($err_msg) > 0) {
+        $_SESSION["exit_msg"] = $err_msg;
+        $_SESSION["origin"] = "apply.php";
+        header("Location: err_msg.php");
+        // exit() to stop the rest of the script running
+        mysqli_close($dbconn);
+        exit();
+    }
+
+    // Check db
+    check_db($dbconn);
+
+    // Check if email already registered
+    // If not add applicant to db first before eoi
+    $applicant = mysqli_query($dbconn, "SELECT * FROM applicants WHERE email = \"$email\" LIMIT 1");
+
+
+    if (count($applicant->fetch_all()) == 0) {
+        // Insert new applicant
+        try {
+            $query = "INSERT INTO applicants (first_name, last_name, dob, gender, street, town, state, postcode, email, phone, skills, other_skills) VALUES (\"$first_name\", \"$last_name\", \"$dob\", \"$gender\", \"$street\", \"$town\", \"$state\", \"$postcode\", \"$email\", \"$phone\", '$skills', \"$other_skills\")";
+            mysqli_query($dbconn, $query);
+            echo "<p>$query</p>";
+        } catch (mysqli_sql_exception) {
+            exit_page(["<p>An error has occurred. Please try again.</p>"], "apply.php", $dbconn);
         }
-
-        echo "<p>Table created.</p>";
     }
 
+    // Insert eoi
+    // Get applicant ID via email
+    $query = "SELECT id FROM applicants WHERE email = \"$email\"";
+    
+    
+    // mysqli_query($dbconn, $query)->fetch_all() returns an array of rows, each row is an array
+    $applicant_id = mysqli_query($dbconn, $query)->fetch_all()[0][0];
 
-    $query = "INSERT INTO eoi (job_ref_num, first_name, last_name, street, town, state, postcode, email, phone, skills, other_skills) VALUES (\"$job_ref_num\", \"$first_name\", \"$last_name\", \"$street\", \"$town\", \"$state\", \"$postcode\", \"$email\", \"$phone\", '$skills', \"$other_skills\")";
-    // echo "<p>$query</p>";
-    $result = mysqli_query($dbconn, $query);
-
-    if (!$result) {
-        echo "<p>An error has occurred. Please try again.</p>";
-    } else {
-        echo "<p>Data added successfully.</p>";
+    try {
+        $query = "INSERT INTO eoi (job_ref_num, applicant_id, interview_date, interview_time) VALUES (\"$job_ref_num\", \"$applicant_id\", \"$interview_date\", \"$interview_time\");";
+        mysqli_query($dbconn, $query);      
+    } catch (mysqli_sql_exception) {
+        exit_page("err_msg.php", ["<p>An error has occurred. Please try again.</p>"], "apply.php", $dbconn);
     }
 
-    mysqli_close($dbconn);
+    exit_page("success_msg.php", ["<p>Your application has been recorded. Please wait to hear from us.</p>"], "index.php");
 } else {
-    echo "<p>Unable to connect to the database. Please try again.</p>";
+    exit_page("err_msg.php", ["<p>Unable to connect to the database. Please try again.</p>"], "apply.php");
 }

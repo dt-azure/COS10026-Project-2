@@ -113,7 +113,12 @@ ul, ol {
     margin-right: 50px;
 }
 
-.navbar .menu a::after {
+.navbar .menu .horizontal-wipe::after {
+    transform: translateY(5px);
+    background-color: #0b3d91;
+}
+
+/* .navbar .menu a::after {
     display: block;
     content: "";
     width: 0;
@@ -126,7 +131,7 @@ ul, ol {
 
 .navbar .menu a:hover::after {
     width: 100%;
-}
+} */
 
 .navbar .menu a {
     font-size: 1.1rem;
@@ -1221,6 +1226,53 @@ summary:hover {
     padding-bottom: 2px;
     margin: 0;
     border: 2px solid rgb(71, 51, 202); /* Adds a visible border */
+}
+
+/* err_msg.php */
+.err-page {
+    padding: 60px 0;
+}
+
+.err-msg {
+    color: red;
+}
+
+.err-msg.horizontal-wipe::after {
+    background-color: red;
+    transform: translateY(2px);
+}
+
+/* success_msg.php */
+.success-page {
+    padding: 60px 0;
+}
+
+.success-page  .horizontal-wipe::after {
+    background-color: #22335b;
+    transform: translateY(2px);
+}
+
+/* Shared styling */
+.horizontal-wipe::after {
+    display: block;
+    content: "";
+    width: 0;
+    height: 2px;
+    margin: auto;
+    /* transform: translateY(5px); */
+    /* background-color: #0b3d91; */
+    transition: all 0.2s ease;
+}
+
+.horizontal-wipe:hover::after {
+    width: 100%;
+}
+
+.link-style {
+    display: inline-block;
+    font-weight: 700;
+    line-height: 1rem;
+    transition: all 0.2s ease;
 }
 
 /* Keyframes for smooth background transition */
