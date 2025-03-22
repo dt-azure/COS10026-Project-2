@@ -1,0 +1,48 @@
+CREATE DATABASE IF NOT EXISTS eoi_db;
+USE eoi_db;
+
+CREATE TABLE `jobs` (
+  `job_ref_num` VARCHAR(255) PRIMARY KEY,
+  `title` VARCHAR(255) NOT NULL,
+  `report_to` VARCHAR(255),
+  `salary` VARCHAR(255),
+  `brief_description` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  `qualifications` TEXT NOT NULL,
+  `status` ENUM('Up', 'Archived') NOT NULL
+);
+
+CREATE TABLE `applicants` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `street` VARCHAR(255) NOT NULL,
+  `town` VARCHAR(255),
+  `state` VARCHAR(255) NOT NULL,
+  `postcode` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `phone` VARCHAR(255) NOT NULL,
+  `skills` TEXT NOT NULL,
+  `other_skills` TEXT,
+  `status` ENUM('Pending', 'Withdrawn', 'Approved', 'Archived') NOT NULL
+);
+
+CREATE TABLE `eoi` (
+  `eoi_num` INT AUTO_INCREMENT PRIMARY KEY,
+  `job_ref_num` VARCHAR(255),
+  `applicant_id` INT,
+  `status` ENUM('New', 'Current', 'Final', 'Archived') NOT NULL DEFAULT 'New',
+  FOREIGN KEY (`job_ref_num`) REFERENCES `jobs`(`job_ref_num`),
+  FOREIGN KEY (`applicant_id`) REFERENCES `applicants`(`id`)
+);
+
+
+ALTER TABLE applicants
+ADD COLUMN dob VARCHAR(20) NOT NULL,
+ADD COLUMN gender VARCHAR(20) NOT NULL;
+
+
+ALTER TABLE eoi
+ADD COLUMN interview_date VARCHAR(20) NOT NULL,
+ADD COLUMN interview_time VARCHAR(20) NOT NULL;
+
