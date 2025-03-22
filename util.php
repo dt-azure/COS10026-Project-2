@@ -8,7 +8,7 @@ const REGEX_DOB = "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/(\d{2}(1[5-9]|
 // $regex_gender = ``;
 const REGEX_STREET = "/^.{1,40}$/";
 // $regex_town = ``;
-const STATES = ["VIC", "NSW", "QLD", "NT", "WA", "SA", "TAS", "ACT"];
+$VALID_STATES = ['VIC', 'NSW', 'QLD', 'NT', 'WA', 'SA', 'TAS', 'ACT'];
 const REGEX_POSTCODE = "/^[0-9]{4}$/";
 // PHP has built-in filter to sanitize emails: filter_var($str, FILTER_SANITIZE_EMAIL)
 // But we'll use regex to keep it consistent with other inputs
@@ -44,9 +44,16 @@ function validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $t
         $err_msg[] = "<p class=\"err-msg\">Invalid Last Name.</p>";
     }
 
-    if (!preg_match(REGEX_DOB, $dob)) {
-        $err_msg[] = "<p class=\"err-msg\">Invalid Date of Birth.</p>";
-    }
+    $dob_ts = strtotime($dob);
+	if (!$dob_ts) {
+		$err_msg[] = "<p class=\"err-msg\">Invalid Date of Birth format.</p>";
+	} else {
+		$age = (int)((time() - $dob_ts) / (365.25 * 24 * 60 * 60));
+		if ($age < 15 || $age > 80) {
+			$err_msg[] = "<p class=\"err-msg\">Invalid Date of Birth: must be 15–80 years old.</p>";
+		}
+	}
+
 
     if (!preg_match(REGEX_STREET, $street)) {
         $err_msg[] = "<p class=\"err-msg\">Invalid Street Address.</p>";
@@ -57,9 +64,11 @@ function validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $t
     }
 
     // User cannot change this input but it's applied validation just in case
-    if (!in_array($state, STATES)) {
-        $err_msg[] = "<p class=\"err-msg\">Invalid State.</p>";
-    }
+	global $VALID_STATES;
+    if (!in_array($state, $VALID_STATES)) {
+		$err_msg[] = "<p class=\"err-msg\">Invalid State.</p>";
+	}
+
 
     if (!preg_match(REGEX_POSTCODE, $postcode)) {
         $err_msg[] = "<p class=\"err-msg\">Invalid Postcode.</p>";
@@ -96,7 +105,10 @@ function validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $t
         }
 
         $postcode_valid = false;
-        foreach ($postcode_ranges as [$min, $max]) {
+        foreach ($postcode_ranges as $range) {
+			$min = $range[0];
+			$max = $range[1];
+
             if ($postcode_int >= $min && $postcode_int <= $max) {
                 $postcode_valid = true;
                 break;
@@ -146,7 +158,7 @@ function check_db($dbconn)
     // 1146 is the error code for missing table,
     try {
         mysqli_query($dbconn, "SELECT 1 FROM applicants LIMIT 1");
-    } catch (mysqli_sql_exception) {
+    } catch (mysqli_sql_exception $e) {
         if (mysqli_errno($dbconn) == "1146") {
             mysqli_query($dbconn, "CREATE TABLE applicants (id INT NOT NULL AUTO_INCREMENT, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, dob VARCHAR(10) NOT NULL, gender VARCHAR(20) NOT NULL, street VARCHAR(100) NOT NULL, town VARCHAR(50), 
         state VARCHAR(5) NOT NULL, postcode VARCHAR(10) NOT NULL, email VARCHAR(100) NOT NULL, phone VARCHAR(15) NOT NULL, skills LONGTEXT COLLATE utf8mb4_bin NOT NULL, 
@@ -157,7 +169,7 @@ function check_db($dbconn)
     // eoi table
     try {
         mysqli_query($dbconn, "SELECT 1 FROM eoi LIMIT 1");
-    } catch (mysqli_sql_exception) {
+    } catch (mysqli_sql_exception $e) {
         if (mysqli_errno($dbconn) == "1146") {
             mysqli_query($dbconn, "CREATE TABLE eoi (eoi_num INT NOT NULL AUTO_INCREMENT, job_ref_num VARCHAR(10) NOT NULL, applicant_id INT NOT NULL, interview_date VARCHAR(10) NOT NULL, interview_time VARCHAR(20) NOT NULL, status ENUM('New', 'Current', 'Final', 'Archived') NOT NULL DEFAULT 'New', PRIMARY KEY (eoi_num));");
         }
@@ -166,7 +178,7 @@ function check_db($dbconn)
     // jobs table
     try {
         mysqli_query($dbconn, "SELECT 1 FROM jobs LIMIT 1");
-    } catch (mysqli_sql_exception) {
+    } catch (mysqli_sql_exception $e) {
         if (mysqli_errno($dbconn) == "1146") {
             mysqli_query($dbconn, "CREATE TABLE jobs (job_ref_num VARCHAR(10) NOT NULL, title VARCHAR(100) NOT NULL, report_to VARCHAR(20) DEFAULT NULL, salary VARCHAR(50) DEFAULT NULL, brief_description TEXT, description TEXT NOT NULL, qualifications LONGTEXT COLLATE utf8mb4_bin NOT NULL, status ENUM('Ongoing', 'Archived') NOT NULL DEFAULT 'Ongoing', PRIMARY KEY(job_ref_num));");
         }
@@ -181,8 +193,25 @@ function check_db($dbconn)
 }
 
 function format_date($date) {
-    $new_date = preg_replace('/[-]/', '\/', trim($date));
-    $new_date = preg_replace('/[^A-Za-z0-9\/]/', '', $new_date);
+    //If 01-Mar-05 or 01-Mar-2005
+    if (preg_match('/^\d{1,2}-[A-Za-z]{3}-\d{2,4}$/', $date)) {
+        $ts = strtotime($date);
+        return date('d/m/Y', $ts);
+    }
 
-    return $new_date;
+    // yyyy-mm-dd
+    if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+        $parts = explode('-', $date);
+        return $parts[2] . '/' . $parts[1] . '/' . $parts[0];
+    }
+
+    
+    return $date;
 }
+
+
+echo "<pre>VALID STATES:\n";
+print_r($VALID_STATES);
+echo "</pre>";
+
+
