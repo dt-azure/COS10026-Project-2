@@ -51,6 +51,7 @@
               <li><a href="about.html">About Us</a></li>
               <li><a href="jobs.html">Careers</a></li>
               <li><a href="apply.html">Apply</a></li>
+              <li><a href="manage.php">Manage</a></li>
               <li>
                 <a href="https://www.youtube.com/watch?v=mN3498thVL4"
                   >Video Demo</a
