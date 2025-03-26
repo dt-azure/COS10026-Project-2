@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once "db_actions.php";
+require_once "settings.php";
 
 $login_error = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -7,13 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
 
-    if ($username === "admin" && $password === "adminpass") {
-        $_SESSION['is_admin'] = true;
-        header("Location: manage.php");
-        exit();
-    } else {
-        $login_error = "Invalid username or password.";
-    }
+	try {
+		$dbconn = @mysqli_connect($host, $user, $pwd, $sql_db);
+		$user_exists = authenticate_user($dbconn, $username, $password);
+
+		if ($user_exists) {
+			$_SESSION['is_admin'] = true;
+			header("Location: manage.php");
+			exit();
+		} else {
+			$login_error = "Invalid username or password.";
+		}
+	} catch (Exception $e) {
+		$login_error = $e->getMessage();
+	}
 }
 ?>
 

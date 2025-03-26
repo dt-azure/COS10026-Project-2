@@ -58,8 +58,6 @@ if ($dbconn) {
         try {
             $query = "INSERT INTO applicants (first_name, last_name, dob, gender, street, town, state, postcode, email, phone, skills, other_skills) VALUES (\"$first_name\", \"$last_name\", \"$dob\", \"$gender\", \"$street\", \"$town\", \"$state\", \"$postcode\", \"$email\", \"$phone\", '$skills', \"$other_skills\")";
             mysqli_query($dbconn, $query);
-			
-            echo "<p>$query</p>";
         } catch (mysqli_sql_exception $e) {
             exit_page(["<p>An error has occurred. Please try again.</p>"], "apply.php", $dbconn);
         }
@@ -70,12 +68,8 @@ if ($dbconn) {
     // Get applicant ID via email
     $query = "SELECT id FROM applicants WHERE email = \"$email\"";
     
-    
     // mysqli_query($dbconn, $query)->fetch_all() returns an array of rows, each row is an array
     $applicant_id = mysqli_query($dbconn, $query)->fetch_all()[0][0];
-	
-	echo "<p>Applicant ID: $applicant_id</p>";
-
 
     try {
         $query = "INSERT INTO eoi (job_ref_num, applicant_id, interview_date, interview_time) VALUES (\"$job_ref_num\", \"$applicant_id\", \"$interview_date\", \"$interview_time\");";
