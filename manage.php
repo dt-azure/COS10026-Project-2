@@ -204,15 +204,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<table class='manage-table'>";
         echo "<tr><th>EOI #</th><th>Name</th><th>Email</th><th>Phone</th><th>Job Ref</th><th>Job Title</th><th>Status</th></tr>";
         while ($row = mysqli_fetch_assoc($result)) {
-          echo "<tr>
-					  <td>{$row['eoi_num']}</td>
-					  <td>{$row['first_name']} {$row['last_name']}</td>
-					  <td>{$row['email']}</td>
-					  <td>{$row['phone']}</td>
-					  <td>{$row['job_ref_num']}</td>
-					  <td>{$row['title']}</td>
-					  <td>{$row['eoi_status']}</td>
-					  </tr>";
+          if ($row['eoi_status'] != "Archived") {
+            echo "<tr>
+              <td>{$row['eoi_num']}</td>
+              <td>{$row['first_name']} {$row['last_name']}</td>
+              <td>{$row['email']}</td>
+              <td>{$row['phone']}</td>
+              <td>{$row['job_ref_num']}</td>
+              <td>{$row['title']}</td>
+              <td>{$row['eoi_status']}</td>
+              </tr>";
+          }
         }
         echo "</table>";
       } else {
