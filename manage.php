@@ -126,11 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="manage-container">
-      <?php if ($notice_msg): ?>
-        <div class="notice"><?= $notice_msg ?></div>
-      <?php endif; ?>
-
-
       <div class="search-box">
         <h2 class="section-heading">Applicant Search</h2>
         <form method="get" class="styled-search-form">
@@ -149,7 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
       </div>
 
-
+      <?php if ($notice_msg): ?>
+        <div class="notice"><?= $notice_msg ?></div>
+      <?php endif; ?>
 
       <?php
       // Handle search
