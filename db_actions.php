@@ -39,3 +39,17 @@ function login($dbconn, $username, $password)
         return null;
     }
 }
+
+function update_eoi_status_by_job_ref($dbconn, $job_ref_num, $status) {
+    $query = "UPDATE eoi SET status = ? WHERE job_ref_num = ?";
+    $stmt = mysqli_prepare($dbconn, $query);
+    mysqli_stmt_bind_param($stmt, "ss", $status, $job_ref_num);
+    mysqli_stmt_execute($stmt);
+}
+
+function update_eoi_status_by_id($dbconn, $eoi_num, $status) {
+    $query = "UPDATE eoi SET status = ? WHERE eoi_num = ?";
+    $stmt = mysqli_prepare($dbconn, $query);
+    mysqli_stmt_bind_param($stmt, "ss", $status, $eoi_num);
+    mysqli_stmt_execute($stmt);
+}

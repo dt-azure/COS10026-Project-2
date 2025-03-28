@@ -17,6 +17,7 @@ if (isset($_SESSION["last_login_attempt_time"]) && (time() - $_SESSION["last_log
 
 
 require_once('settings.php');
+require_once('db_actions.php');
 $conn = @mysqli_connect($host, $user, $pwd, $sql_db);
 if (!$conn) {
   die("Database connection failed: " . mysqli_connect_error());
@@ -33,19 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['delete_job'])) {
     $job_ref = sanitize($_POST['delete_job']);
     $query = "DELETE FROM eoi WHERE job_ref_num = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "s", $job_ref);
-    mysqli_stmt_execute($stmt);
+    // $stmt = mysqli_prepare($conn, $query);
+    // mysqli_stmt_bind_param($stmt, "s", $job_ref);
+    // mysqli_stmt_execute($stmt);
+    update_eoi_status_by_job_ref($conn, $job_ref, "Archived");
     $notice_msg = "Deleted all EOIs for Job Ref: $job_ref";
   }
 
   if (isset($_POST['update_status_btn'])) {
     $eoi_num = intval($_POST['eoi_num']);
     $new_status = sanitize($_POST['new_status']);
-    $query = "UPDATE eoi SET status = ? WHERE eoi_num = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "si", $new_status, $eoi_num);
-    mysqli_stmt_execute($stmt);
+    // $query = "UPDATE eoi SET status = ? WHERE eoi_num = ?";
+    // $stmt = mysqli_prepare($conn, $query);
+    // mysqli_stmt_bind_param($stmt, "si", $new_status, $eoi_num);
+    // mysqli_stmt_execute($stmt);
+    update_eoi_status_by_id($conn, $eoi_num, $new_status);
     $notice_msg = "Status updated for EOI #$eoi_num";
   }
 }
