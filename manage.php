@@ -24,23 +24,21 @@ function sanitize($data)
 // Handle POST (delete or update)
 $notice_msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['delete_job'])) {
-        $job_ref = sanitize($_POST['delete_job']);
-        $query = "DELETE FROM eoi WHERE job_ref_num = ?";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "s", $job_ref);
+    if (isset($_POST['delete_eoi_num'])) {
+        $eoiToDelete = intval($_POST['delete_eoi_num']);
+        $stmt = mysqli_prepare($conn, "DELETE FROM eoi WHERE eoi_num = ?");
+        mysqli_stmt_bind_param($stmt, "i", $eoiToDelete);
         mysqli_stmt_execute($stmt);
-        $notice_msg = "Deleted all EOIs for Job Ref: $job_ref";
+        $notice_msg = "Deleted EOI #$eoiToDelete";
     }
 
-    if (isset($_POST['update_status_btn'])) {
-        $eoi_num = intval($_POST['eoi_num']);
-        $new_status = sanitize($_POST['new_status']);
-        $query = "UPDATE eoi SET status = ? WHERE eoi_num = ?";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "si", $new_status, $eoi_num);
+    if (isset($_POST['update_eoi_num']) && isset($_POST['new_status'])) {
+        $eoiToUpdate = intval($_POST['update_eoi_num']);
+        $newStatus = sanitize($_POST['new_status']);
+        $stmt = mysqli_prepare($conn, "UPDATE eoi SET status = ? WHERE eoi_num = ?");
+        mysqli_stmt_bind_param($stmt, "si", $newStatus, $eoiToUpdate);
         mysqli_stmt_execute($stmt);
-        $notice_msg = "Status updated for EOI #$eoi_num";
+        $notice_msg = "Status updated for EOI #$eoiToUpdate";
     }
 }
 ?>
@@ -191,43 +189,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$result = mysqli_stmt_get_result($stmt);
 
 		if (mysqli_num_rows($result) > 0) {
-			echo "<table class='manage-table'>";
-			echo "<tr><th>EOI #</th><th>Name</th><th>Email</th><th>Phone</th><th>Job Ref</th><th>Job Title</th><th>Status</th></tr>";
-			while ($row = mysqli_fetch_assoc($result)) {
-				echo "<tr>
-					  <td>{$row['eoi_num']}</td>
-					  <td>{$row['first_name']} {$row['last_name']}</td>
-					  <td>{$row['email']}</td>
-					  <td>{$row['phone']}</td>
-					  <td>{$row['job_ref_num']}</td>
-					  <td>{$row['title']}</td>
-					  <td>{$row['eoi_status']}</td>
-					  </tr>";
-			}
-			echo "</table>";
-		} else {
-			echo "<div class='notice'>No results found.</div>";
-		}
+      echo "<table class='manage-table'>";
+      echo "<tr><th>EOI #</th><th>Name</th><th>Email</th><th>Phone</th><th>Job Ref</th><th>Job Title</th><th>Status</th><th>Delete</th><th>Update</th></tr>";
+      while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr>
+          <td>{$row['eoi_num']}</td>
+          <td>{$row['first_name']} {$row['last_name']}</td>
+          <td>{$row['email']}</td>
+          <td>{$row['phone']}</td>
+          <td>{$row['job_ref_num']}</td>
+          <td>{$row['title']}</td>
+          <td>{$row['eoi_status']}</td>
+          <td>
+            <form method='post' action='manage.php' onsubmit='return confirm(\"Are you sure?\");'>
+              <input type='hidden' name='delete_eoi_num' value='{$row['eoi_num']}'>
+              <button type='submit'>Delete</button>
+            </form>
+          </td>
+          <td>
+            <form method='post' action='manage.php'>
+              <input type='hidden' name='update_eoi_num' value='{$row['eoi_num']}'>
+              <select name='new_status'>
+                <option value='New'" . ($row['eoi_status'] == 'New' ? ' selected' : '') . ">New</option>
+                <option value='Current'" . ($row['eoi_status'] == 'Current' ? ' selected' : '') . ">Current</option>
+                <option value='Final'" . ($row['eoi_status'] == 'Final' ? ' selected' : '') . ">Final</option>
+                <option value='Archived'" . ($row['eoi_status'] == 'Archived' ? ' selected' : '') . ">Archived</option>
+              </select>
+              <button type='submit'>Update</button>
+            </form>
+          </td>
+        </tr>";
+      }
+      echo "</table>";
+    } else {
+      echo "<div class='notice'>No results found.</div>";
+    }
 		?>
-
-		<h2>Delete EOIs by Job Reference</h2>
-		<form method="post" class="manage-form">
-			Job Reference: <input type="text" name="delete_job" required>
-			<input type="submit" value="Delete">
-		</form>
-
-		<h2>Update EOI Status</h2>
-		<form method="post" class="manage-form">
-			EOI Number: <input type="number" name="eoi_num" required>
-			New Status:
-			<select name="new_status">
-				<option value="New">New</option>
-				<option value="Current">Current</option>
-				<option value="Final">Final</option>
-				<option value="Archived">Archived</option>
-			</select>
-			<input type="submit" name="update_status_btn" value="Update">
-		</form>
 	</div>
 	
 	<footer id="footer">
