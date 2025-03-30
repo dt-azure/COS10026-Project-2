@@ -1,0 +1,48 @@
+INSERT INTO jobs (job_ref_num, title, report_to, salary, brief_description, description, qualifications, status) VALUES
+('WD021', 'Web Developer', 'Lead Software Engineer', '$80,000 - $120,000 per year',
+'Develop and maintain scalable web applications. Collaborate with cross-functional teams. Write clean, efficient, and well-documented code.',
+'We are looking for a skilled Software Engineer to develop and maintain web applications using modern technologies.',
+'{"Essential": "Bachelor\'s degree in Computer Science or related field. 3+ years of experience in software development. Proficiency in JavaScript, Python, or Java.", "Preferable": "Experience with cloud platforms like AWS or Azure. Knowledge of DevOps practices."}',
+'Up'),
+
+('RS456', 'Research Scientist', 'Director of AI Research', '$80,000 - $98,000 per year',
+'Conduct research in deep learning and neural networks. Develop AI models for real-world applications.',
+'We are seeking an AI Research Scientist to develop cutting-edge machine learning models and advance artificial intelligence research.',
+'{"Essential": "PhD in Computer Science, AI, or related field. 4+ years of work in AI research.", "Preferable": "Experience with reinforcement learning. Contributions to open-source AI projects."}',
+'Up'),
+
+('DA789', 'Data Analyst', 'Data Science Manager', '$70,000 - $90,000 per year',
+'Analyze large datasets and extract insights. Develop dashboards and reports. Collaborate with different departments.',
+'We are looking for a Data Analyst to interpret complex data and provide business insights.',
+'{"Essential": "Bachelor\'s degree in Statistics, Mathematics, or related field. Proficiency in SQL, Excel, and Python.", "Preferable": "Experience with machine learning models. Understanding of A/B testing."}',
+'Up'),
+
+('UX567', 'UX/UI Designer', 'Product Design Lead', '$75,000 - $100,000 per year',
+'Design and wireframe user interfaces. Conduct user research and testing.',
+'Seeking a UX/UI Designer to create user-friendly interfaces and improve user experience.',
+'{"Essential": "Degree in Design, HCI, or related field. Proficiency in Figma, Adobe XD, or Sketch.", "Preferable": "Experience with front-end development. Understanding of accessibility guidelines."}',
+'Up'),
+
+('DE234', 'DevOps Engineer', 'CTO', '$90,000 - $120,000 per year',
+'Monitor system performance and security. Maintain infrastructure as code.',
+'We are hiring a DevOps Engineer to automate and optimize our development and deployment processes.',
+'{"Essential": "Bachelor\'s in Computer Science or equivalent. Experience with AWS, Azure, or Google Cloud.", "Preferable": "Knowledge of Kubernetes, Docker, Terraform, Ansible."}',
+'Up'),
+
+('CY890', 'Cybersecurity Analyst', 'Security Manager', '$85,000 - $125,000 per year',
+'Monitor network for threats. Conduct assessments and audits.',
+'We need a Cybersecurity Analyst to protect company data and prevent security breaches.',
+'{"Essential": "Expert in cybersecurity or IT. Experience in threat detection and network security.", "Preferable": "Certified Ethical Hacker (CEH), SIEM tools, penetration testing."}',
+'Up'),
+
+('CA221', 'Cloud Architect', 'VP of Engineering', '$120,000 - $160,000 per year',
+'Design and manage cloud-based infrastructure. Ensure compliance with security policies.',
+'Hiring a Cloud Architect to design and manage cloud-based IT infrastructure.',
+'{"Essential": "Experience with AWS, Azure, or Google Cloud. Strong coding skills.", "Preferable": "Cloud certifications like AWS Certified Solutions Architect."}',
+'Up'),
+
+('IT466', 'IT Support Specialist', 'IT Manager', '$60,000 - $75,000 per year',
+'Provide IT support and troubleshooting. Manage system installations and updates.',
+'Looking for an IT Support Specialist to troubleshoot technical issues and support end-users.',
+'{"Essential": "Experience with Windows and Mac OS. Strong networking and communication skills.", "Preferable": "Certifications like CompTIA A+ or ITIL."}',
+'Up');

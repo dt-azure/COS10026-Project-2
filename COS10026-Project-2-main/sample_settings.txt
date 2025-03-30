@@ -1,0 +1,12 @@
+<?php
+    $host = "feenix-mariadb.swin.edu.au";
+    $user = "";
+    $pwd = "";
+    $sql_db = "";
+
+    $dbconn = @mysqli_connect($host, $user, $pwd, $sql_db);
+
+    if (!$dbconn) {
+        die("Connection failed: " . @mysqli_connect_error());
+    }
+?>
