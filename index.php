@@ -31,7 +31,7 @@
 </head>
 
 <body>
-  <?php include("./components/header.php") ?>
+  <?php include("./components/header.inc") ?>
 
   <section class="banner">
     <!-- Stock photo. Source: https://www.pexels.com/photo/office-team-having-a-meeting-at-the-table-7654396/ -->
@@ -246,7 +246,7 @@
     </div>
   </div>
 
-  <?php include("./components/footer.php") ?>
+  <?php include("./components/footer.inc") ?>
 </body>
 
 </html>

@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
   <!-- Header -->
-  <?php include("./components/header.php") ?>
+  <?php include("./components/header.inc") ?>
 
   <!-- HR Manager Header Section -->
   <div class="banner-section">
@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ?>
   </div>
 
-  <?php include("./components/footer.php") ?>
+  <?php include("./components/footer.inc") ?>
 </body>
 
 </html>

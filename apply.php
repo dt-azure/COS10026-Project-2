@@ -28,7 +28,7 @@
 <body>
 
   <!-- Header -->
-  <?php include("./components/header.php") ?>
+  <?php include("./components/header.inc") ?>
 
   <!-- Sub-header -->
   <div class="sub-header">
@@ -232,7 +232,7 @@
     </form>
   </main>
 
-  <?php include("./components/footer.php") ?>
+  <?php include("./components/footer.inc") ?>
 
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>

@@ -24,7 +24,7 @@
 
 <body>
     <!-- Header -->
-    <?php include("./components/header.php") ?>
+    <?php include("./components/header.inc") ?>
 
     <section class="err-page">
         <div class="container">
@@ -49,7 +49,7 @@
     </section>
 
     <!-- Footer -->
-    <?php include("./components/footer.php") ?>
+    <?php include("./components/footer.inc") ?>
 </body>
 
 </html>

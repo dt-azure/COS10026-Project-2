@@ -47,7 +47,7 @@ $result = $stmt->get_result();
 
 <body>
   <!-- Header -->
-  <?php include("./components/header.php") ?>
+  <?php include("./components/header.inc") ?>
 
   <div class="job-description">
     <main>
@@ -118,7 +118,7 @@ $result = $stmt->get_result();
     </main>
   </div>
 
-  <?php include("./components/footer.php") ?>
+  <?php include("./components/footer.inc") ?>
 </body>
 
 </html>
