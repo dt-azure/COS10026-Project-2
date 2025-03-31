@@ -209,9 +209,7 @@ function format_date($date) {
     return $date;
 }
 
-
-echo "<pre>VALID STATES:\n";
-print_r($VALID_STATES);
-echo "</pre>";
-
-
+function reset_session_with_exception() {
+    $keys_to_keep = ["user_access", "last_login_attempt_time"];
+    $_SESSION = array_intersect_key($_SESSION, array_flip($keys_to_keep));
+}

@@ -152,6 +152,7 @@
 </html>
 
 <?php
-session_unset();
+require_once("util.php");
+reset_session_with_exception();
 ob_end_flush();
 ?>

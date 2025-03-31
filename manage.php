@@ -11,6 +11,8 @@ if (!isset($_SESSION["user_access"])) {
 
 require_once('settings.php');
 require_once('db_actions.php');
+require_once('util.php');
+
 $conn = @mysqli_connect($host, $user, $pwd, $sql_db);
 if (!$conn) {
   die("Database connection failed: " . mysqli_connect_error());
@@ -24,6 +26,10 @@ function sanitize($data)
 // Handle POST (delete or update)
 $notice_msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if ($_SESSION["user_access"] != "admin") {
+    exit_page("err_msg.php", ["Unauthorized Action. Admin Access Required."], "manage.php");
+  }
+
   if (isset($_POST['delete_eoi_num'])) {
     $eoiToDelete = intval($_POST['delete_eoi_num']);
     $stmt = mysqli_prepare($conn, "DELETE FROM eoi WHERE eoi_num = ?");
