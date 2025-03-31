@@ -3,6 +3,12 @@ session_start();
 require_once "db_actions.php";
 require_once "settings.php";
 
+// Redirect if user already logged in
+if (isset($_SESSION["user_access"])) {
+	header("Location: manage.php");
+	exit();
+}
+
 $login_error = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$username = isset($_POST['username']) ? trim($_POST['username']) : '';
