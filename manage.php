@@ -186,9 +186,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       mysqli_stmt_execute($stmt);
       $result = mysqli_stmt_get_result($stmt);
 
+      echo "<div class=\"table-container\">";
       if (mysqli_num_rows($result) > 0) {
         echo "<table class='manage-table'>";
-        echo "<tr><th>EOI #</th><th>Name</th><th>Email</th><th>Phone</th><th>Job Ref</th><th>Job Title</th><th>Status</th><th>Delete</th><th>Update</th></tr>";
+        echo "<tr><th>EOI #</th><th>Name</th><th>Email</th><th>Phone</th><th>Job Ref</th><th>Job Title</th><th>Status</th><th>Action</th>";
         while ($row = mysqli_fetch_assoc($result)) {
           echo "<tr>
           <td>{$row['eoi_num']}</td>
@@ -198,22 +199,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <td>{$row['job_ref_num']}</td>
           <td>{$row['title']}</td>
           <td>{$row['eoi_status']}</td>
-          <td>
+          <td class='table-action'>
             <form method='post' action='manage.php' onsubmit='return confirm(\"Are you sure?\");'>
               <input type='hidden' name='delete_eoi_num' value='{$row['eoi_num']}'>
-              <button type='submit'>Delete</button>
+              <button type='submit' class='main-btn delete-btn'>Delete</button>
             </form>
-          </td>
-          <td>
+
             <form method='post' action='manage.php'>
-              <input type='hidden' name='update_eoi_num' value='{$row['eoi_num']}'>
-              <select name='new_status'>
-                <option value='New'" . ($row['eoi_status'] == 'New' ? ' selected' : '') . ">New</option>
-                <option value='Current'" . ($row['eoi_status'] == 'Current' ? ' selected' : '') . ">Current</option>
-                <option value='Final'" . ($row['eoi_status'] == 'Final' ? ' selected' : '') . ">Final</option>
-                <option value='Archived'" . ($row['eoi_status'] == 'Archived' ? ' selected' : '') . ">Archived</option>
-              </select>
-              <button type='submit'>Update</button>
+              <div class='dropdown'>
+                <button class='main-btn toggle-btn'>Change Status</button>
+                <div class='dropdown-content'>
+                  <div class='dropdown-content-container'>
+                    <input type='hidden' name='update_eoi_num' value='{$row['eoi_num']}'>
+                    <button type='submit' class='dropdown-btn main-btn' name='new_status' value='New'>New</button>
+                    <button type='submit' class='dropdown-btn main-btn' name='new_status' value='Current'>Current</button>
+                    <button type='submit' class='dropdown-btn main-btn' name='new_status' value='Final'>Final</button>
+                    <button type='submit' class='dropdown-btn main-btn' name='new_status' value='Archived'>Archived</button>     
+                  </div>
+                </div>
+              </div>
             </form>
           </td>
         </tr>";
@@ -222,6 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         echo "<div class='notice'>No results found.</div>";
       }
+      echo "</div>";
       ?>
     </div>
 

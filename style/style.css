@@ -1276,6 +1276,30 @@ summary:hover {
     transition: all 0.2s ease;
 }
 
+/* Dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+.dropdown-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 /* Keyframes for smooth background transition */
 @keyframes gradientAnimation {
     0% {
@@ -1456,7 +1480,7 @@ summary:hover {
 
 /* Styling for manage.php */
 .manage-container {
-  max-width: 1000px;
+  max-width: 85vw;
   margin: 2rem auto;
   padding: 2rem;
   background-color: white;
@@ -1502,11 +1526,16 @@ summary:hover {
   background-color: #f9844a;
 }
 
+.table-container {
+    overflow: scroll;
+}
+
 .manage-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
   margin-bottom: 2rem;
+  white-space: nowrap;
 }
 
 .manage-table th,
@@ -1520,6 +1549,56 @@ summary:hover {
   background-color: #0a3a82;
   color: white;
 
+}
+
+.manage-table th:last-child, .manage-table td:last-child,
+.manage-table th:nth-last-child(2), .manage-table td:nth-last-child(2) {
+    position: sticky;
+    right: 0;
+    z-index: 2;
+}
+
+.manage-table td:last-child,
+.manage-table td:nth-last-child(2) {
+    background-color: #ffff;
+}
+
+.table-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-action .delete-btn:hover {
+    background-color: #ff0f0f;
+    border-color: #ff0f0f;
+    color: #ffff;
+}
+
+.table-action .main-btn {
+    padding: 4px 10px;
+    font-size: 1rem;
+}
+
+.manage-table .dropdown button {
+    width: 100%;
+}
+
+.manage-table .dropdown .toggle-btn:hover {
+    background-color: #0a3a82;
+    color: #ffff;
+}
+
+.manage-table .dropdown-content-container button {
+    background-color: #f5f6f9;
+    border-color: #f5f6f9;
+    border-radius: 0;
+    color: #0a3a82;
+}
+
+.manage-table .dropdown-content-container button:hover {
+    background-color: rgba(102, 102, 102, 0.5);
+    border-color: #f5f6f9;
 }
 
 .notice {
@@ -1747,7 +1826,10 @@ summary:hover {
       margin-bottom: 1rem;
     }
  
-
+    .back-home {
+        display: inline-block;
+        margin-top: 15px;
+    }
 
 
 /* Responsive styling for small screen size */
