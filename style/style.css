@@ -135,6 +135,7 @@ ul, ol {
 
 .navbar .menu a {
     font-size: 1.1rem;
+    text-wrap: nowrap;
 }
 
 .navbar .menu a:hover {
