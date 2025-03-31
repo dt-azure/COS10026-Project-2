@@ -37,7 +37,7 @@
   </div>
 
   <main class="form-container">
-    <form action="job_apply.php" method="post" novalidate="novalidate">
+    <form action="process_eoi.php" method="post" novalidate="novalidate">
 
 
       <!-- Job Reference-->
