@@ -28,7 +28,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <img
                         src="./images/logo/company-logo-black.png"
                         alt="Company logo"
@@ -38,14 +38,15 @@
 
                 <div class="navbar">
                     <ul class="menu">
-                        <li><a href="index.html" class="horizontal-wipe">Home</a></li>
-                        <li><a href="about.html" class="horizontal-wipe">About Us</a></li>
-                        <li><a href="jobs.html" class="horizontal-wipe">Careers</a></li>
-                        <li><a href="apply.html" class="horizontal-wipe">Apply</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="jobs.php">Careers</a></li>
+                        <li><a href="apply.php">Apply</a></li>
+                        <li><a href="manage.php">Manage</a></li>
                         <li>
-                            <a href="https://www.youtube.com/watch?v=mN3498thVL4" class="horizontal-wipe">Video Demo</a>
+                            <a href="https://www.youtube.com/watch?v=mN3498thVL4">Video Demo</a>
                         </li>
-                        <li><a href="enhancements.html" class="horizontal-wipe">Enhancements</a></li>
+                        <li><a href="enhancements.php">Enhancements</a></li>
                     </ul>
 
                     <button
@@ -76,7 +77,7 @@
             foreach ($_SESSION["exit_msg"] as $msg) {
                 echo $msg;
             }
-            
+
             echo "<p>Click <a href=\"" . $_SESSION["origin"] . "\" class=\"link-style horizontal-wipe\">here</a> to go back to the Home page.</p>";
             ?>
         </div>
@@ -87,7 +88,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="social-links">
-                    <a href="index.html" class="logo">
+                    <a href="index.php" class="logo">
                         <!-- <img src="./img/logo/company-logo-blue.png" alt="company-logo" class="company-logo"> -->
                         <h1>
                             The <br />
@@ -120,12 +121,14 @@
                 <div>
                     <h3 class="footer-header">Links</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="jobs.html">Careers</a></li>
-                        <li><a href="enhancements.html">Enhancements</a></li>
-                        <li><a href="apply.html">Apply</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=mN3498thVL4">Video Demo</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="jobs.php">Careers</a></li>
+                        <li><a href="enhancements.php">Enhancements</a></li>
+                        <li><a href="apply.php">Apply</a></li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=mN3498thVL4">Video Demo</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -153,6 +156,7 @@
 </html>
 
 <?php
-session_unset();
+require_once("util.php");
+reset_session_with_exception();
 ob_end_flush();
 ?>

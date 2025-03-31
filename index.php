@@ -48,8 +48,8 @@
           <div class="navbar">
             <ul class="menu">
               <li><a href="index.php">Home</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="jobs.html">Careers</a></li>
+              <li><a href="about.php">About Us</a></li>
+              <li><a href="jobs.php">Careers</a></li>
               <li><a href="apply.php">Apply</a></li>
               <li><a href="manage.php">Manage</a></li>
               <li>
@@ -57,7 +57,7 @@
                   >Video Demo</a
                 >
               </li>
-              <li><a href="enhancements.html">Enhancements</a></li>
+              <li><a href="enhancements.php">Enhancements</a></li>
             </ul>
 
             <button
@@ -295,7 +295,7 @@
       <div class="container">
         <div class="footer-content">
           <div class="social-links">
-            <a href="index.html" class="logo">
+            <a href="index.php" class="logo">
               <!-- <img src="./img/logo/company-logo-blue.png" alt="company-logo" class="company-logo"> -->
               <h1>
                 The <br />
@@ -336,11 +336,11 @@
           <div>
             <h3 class="footer-header">Links</h3>
             <ul class="footer-links">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="jobs.html">Careers</a></li>
-              <li><a href="enhancements.html">Enhancements</a></li>
-              <li><a href="apply.html">Apply</a></li>
+              <li><a href="index.php">Home</a></li>
+              <li><a href="about.php">About Us</a></li>
+              <li><a href="jobs.php">Careers</a></li>
+              <li><a href="enhancements.php">Enhancements</a></li>
+              <li><a href="apply.php">Apply</a></li>
               <li>
                 <a href="https://www.youtube.com/watch?v=mN3498thVL4"
                   >Video Demo</a

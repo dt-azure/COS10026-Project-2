@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <header>
     <div class="container">
       <div class="header-content">
-        <a href="index.html" class="logo">
+        <a href="index.php" class="logo">
           <img
             src="./images/logo/company-logo-black.png"
             alt="Company logo"
@@ -92,20 +92,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="navbar">
           <ul class="menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="jobs.html">Careers</a></li>
-            <li><a href="apply.html">Apply</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <li><a href="jobs.php">Careers</a></li>
+            <li><a href="apply.php">Apply</a></li>
+            <li><a href="manage.php">Manage</a></li>
             <li>
               <a href="https://www.youtube.com/watch?v=mN3498thVL4">Video Demo</a>
             </li>
-            <li><a href="enhancements.html">Enhancements</a></li>
+            <li><a href="enhancements.php">Enhancements</a></li>
           </ul>
 
-          <button class="main-btn contact-btn" onclick="window.location.href='logout.php'">
-            Log Out
+          <button
+            class="main-btn contact-btn"
+            type="button"
+            aria-label="Contact Us"
+            onclick="window.location.href='mailto:105508266@student.swin.edu.au'">
+            Contact
           </button>
-
         </div>
       </div>
     </div>
@@ -240,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="container">
         <div class="footer-content">
           <div class="social-links">
-            <a href="index.html" class="logo">
+            <a href="index.php" class="logo">
               <!-- <img src="./img/logo/company-logo-blue.png" alt="company-logo" class="company-logo"> -->
               <h1>
                 The <br />
@@ -273,12 +277,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div>
             <h3 class="footer-header">Links</h3>
             <ul class="footer-links">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="jobs.html">Careers</a></li>
-              <li><a href="enhancements.html">Enhancements</a></li>
-              <li><a href="apply.html">Apply</a></li>
-              <li><a href="manage.php">Manage</a></li>
+              <li><a href="index.php">Home</a></li>
+              <li><a href="about.php">About Us</a></li>
+              <li><a href="jobs.php">Careers</a></li>
+              <li><a href="enhancements.php">Enhancements</a></li>
+              <li><a href="apply.php">Apply</a></li>
               <li>
                 <a href="https://www.youtube.com/watch?v=mN3498thVL4">Video Demo</a>
               </li>
@@ -305,5 +308,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </footer>
   </body>
-
 </html>
