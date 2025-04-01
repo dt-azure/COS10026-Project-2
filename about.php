@@ -89,22 +89,27 @@
                         <img src="images/phu.jpg" alt="Portrait of Truong Gia Phu">
                         <h2>Truong Gia Phu</h2>
                     </a>
-                    <p class="title">Design and optimize the apply.html and about.html section</p>
+                    <p class="title"><strong>Front-end: </strong> Designing and optimizing the apply.php and about.php section</p>
+                    <p class="title"><strong>Back-end: </strong> Responsible for manage.php file that allows managers to view and manipulate data; providing sql code for jobs table creation and examples for testing purposes</p>
+
                 </div>
                 <div class="team-member">
                     <a href="#member2">
                         <img src="images/trung.jpg" alt="Portrait of Nguyen Duc Trung">
                         <h2>Nguyen Duc Trung</h2>
                     </a>
-                    <p class="title">Design and optimize the index.html section</p>
+                    <p class="title"><strong>Front-end: </strong>Designing and optimizing the index.php section</p>
+                    <p class="title"><strong>Back-end: </strong>Initializing, formating, testing, and adding record validation to EOI table and user table; enabling user login-logout and authentication  </p>
+
                 </div>
                 <div class="team-member">
                     <a href="#member3">
                         <img src="images/thai.jpg" alt="Portrait of Nguyen Xuan Thai">
                         <h2>Nguyen Xuan Thai</h2>
                     </a>
-                    <p class="title">Design and optimize the jobs.html section</p>
-                </div>
+                    <p class="title"><strong>Front-end: </strong>Designing the jobs.php and updating about.php  </p>
+                    <p class="title"><strong>Back-end: </strong>Allowing jobs.php file to retrieve job data and displaying them to web browsers; modularising web content  </p>     
+                  </div>
             </div>
         </div>
     </section>
