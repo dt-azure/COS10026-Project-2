@@ -22,8 +22,8 @@
 </head>
 
 <body>
-    <!-- Header -->
-     <?php include 'header.php'; ?>
+  <!-- Header -->
+  <?php include("./components/header.inc") ?>
 
     <!-- About Section -->
     <section class="about-section">
@@ -163,8 +163,8 @@
     </section>
 
 
-    <!-- Footer -->
-     <?php include 'footer.php'; ?>
+  <!-- Header -->
+  <?php include("./components/footer.inc") ?>
 
 </body>
 </html>
