@@ -102,13 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 function process_login_attempt()
 {
-	// Record current time if it's the first failed attempt
-	// Reset records if there is a previous attempt more than 30 minutes ago
-	if (!isset($_SESSION["login_attempts"]) || (time() - $_SESSION["last_login_attempt_time"] > 1800)) {
-		$_SESSION["last_login_attempt_time"] = time();
+
+	if (!isset($_SESSION["login_attempts"])) {
 		$_SESSION["login_attempts"] = 1;
 	} else {
 		$_SESSION["login_attempts"] += 1;
 	}
+
+	$_SESSION["last_login_attempt_time"] = time();
 }
 ?>
