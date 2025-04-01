@@ -1319,142 +1319,6 @@ summary:hover {
     100% { color: #333; }  /* When background is light */
 }
 
-/* Handling responsiveness */
-@media screen and (max-width: 1440px) {
-    .company-logo {
-        width: 80px;
-    }
-}
-
-/* Responsive styling for medium screen size */
-@media screen and (max-width: 1200px) {
-    
-    .header-content .logo {
-        width: 30%;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-    
-    .header-content .logo h1 {
-        font-size: 1.4rem;
-    }
-
-    .navbar {
-        width: 70%;
-        justify-content: space-between;
-    }
-
-    .navbar .menu {
-        width: 70%;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        align-items: start;
-    }
-
-    .navbar .menu a {
-        display: inline-block;
-        font-size: 1rem;
-    }
-
-    .banner-text {
-        max-width: 80%;
-    }
-
-    .intro-card-field {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .intro-card {
-        width: 100%;
-    }
-
-    .product-field {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .product-card {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    .testimony .profile {
-        flex-direction: column;
-    }
-
-    .testimony .profile-photo {
-        margin-right: 0;
-        margin-bottom: 80px;
-    }
-
-    .testimony .testimony-text {
-        max-width: 80%;
-    }
-
-    .contact .section-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .contact .cta-text {
-        margin-bottom: 60px;
-    }
-
-    .contact .cta-text + div {
-        width: 100%;
-    }
-
-    .footer-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        gap: 60px;
-    }
-
-    .footer-content .social-links {
-        grid-column: 1;
-        grid-row: 1;
-        width: 50%;
-    }
-
-    .footer-content .footer-links {
-        grid-column: 2;
-        grid-row: 1;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .footer-content .footer-links h3 {
-        grid-column: 1 / -1;
-    }
-
-
-    .footer-content .newsletter {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer-content .newsletter .email-input {
-        width: 80%;
-    }
-
-    .footer-content .newsletter .email-input input {
-        width: 80%;
-    } 
-
-    .footer-content .newsletter .email-input button {
-        flex-grow: 1;
-    }
-}
-
 .enhancements table {
     width: 100%;
     border-collapse: collapse;
@@ -1729,108 +1593,142 @@ summary:hover {
   font-weight: 400;
 }
 
+/* Handling responsiveness */
+@media screen and (max-width: 1440px) {
+    .company-logo {
+        width: 80px;
+    }
+}
 
-/* ------ Styling for login.php ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+
+/* Responsive styling for medium screen size */
+@media screen and (max-width: 1200px) {
+    
+    .header-content .logo {
+        width: 30%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .header-content .logo h1 {
+        font-size: 1.4rem;
     }
 
-    body, html {
-      height: 100%;
-      font-family: 'Montserrat', sans-serif;
+    .navbar {
+        width: 70%;
+        justify-content: space-between;
     }
 
-    .login-container {
-      display: flex;
-      height: 100vh;
+    .navbar .menu {
+        width: 70%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: start;
     }
 
-    .left-panel {
-      width: 60%;
-      background: linear-gradient(135deg, #0a3a82, #f9844a);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem;
-      text-align: center;
-    }
-
-    .left-panel img {
-      width: 120px;
-      margin-bottom: 1.5rem;
-    }
-
-    .left-panel h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .left-panel p {
-      font-size: 1rem;
-      max-width: 400px;
-    }
-
-    .right-panel {
-      width: 40%;
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .login-form {
-      width: 80%;
-      max-width: 350px;
-      text-align: center;
-    }
-
-    .login-form h2 {
-      color: #0a3a82;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .login-form input {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
-    .login-form button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #0a3a82;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .login-form button:hover {
-      background-color: #f9844a;
-    }
-
-    .error-message {
-      color: #f9844a;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
- 
-    .back-home {
+    .navbar .menu a {
         display: inline-block;
-        margin-top: 15px;
+        font-size: 1rem;
     }
+
+    .banner-text {
+        max-width: 80%;
+    }
+
+    .intro-card-field {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .intro-card {
+        width: 100%;
+    }
+
+    .product-field {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .product-card {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .testimony .profile {
+        flex-direction: column;
+    }
+
+    .testimony .profile-photo {
+        margin-right: 0;
+        margin-bottom: 80px;
+    }
+
+    .testimony .testimony-text {
+        max-width: 80%;
+    }
+
+    .contact .section-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .contact .cta-text {
+        margin-bottom: 60px;
+    }
+
+    .contact .cta-text + div {
+        width: 100%;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 60px;
+    }
+
+    .footer-content .social-links {
+        grid-column: 1;
+        grid-row: 1;
+        width: 50%;
+    }
+
+    .footer-content .footer-links {
+        grid-column: 2;
+        grid-row: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-content .footer-links h3 {
+        grid-column: 1 / -1;
+    }
+
+
+    .footer-content .newsletter {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-content .newsletter .email-input {
+        width: 80%;
+    }
+
+    .footer-content .newsletter .email-input input {
+        width: 80%;
+    } 
+
+    .footer-content .newsletter .email-input button {
+        flex-grow: 1;
+    }
+}
 
 
 /* Responsive styling for small screen size */
