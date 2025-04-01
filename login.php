@@ -9,6 +9,11 @@ if (isset($_SESSION["user_access"])) {
 	exit();
 }
 
+// Reset lockdown after 30 minutes
+if (isset($_SESSION["login_attempts"], $_SESSION["last_login_attempt_time"]) && (time() - $_SESSION["last_login_attempt_time"] >= 1800)) {
+	$_SESSION["login_attempts"] = 0;
+}
+
 $login_error = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$username = isset($_POST['username']) ? trim($_POST['username']) : '';
