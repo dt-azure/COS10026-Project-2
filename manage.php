@@ -86,7 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
   <!-- Header -->
-  <?php include("./components/header.inc") ?>
+  <?php 
+  $page = 'manage';
+  include("./components/header.inc") 
+  ?>
 
   <!-- HR Manager Header Section -->
   <div class="banner-section">
