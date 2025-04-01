@@ -3,8 +3,15 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Redirect user to login page if not logged in
 if (!isset($_SESSION["user_access"])) {
   header("Location: login.php");
+  exit();
+}
+
+// Automatically log users out after 2 hours
+if (time() - $_SESSION["last_login_attempt_time"] >= 7200) {
+  header("Location: logout.php");
   exit();
 }
 
