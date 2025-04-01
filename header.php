@@ -1,4 +1,4 @@
-    <header>
+<header>
       <div class="container">
         <div class="header-content">
           <a href="index.php" class="logo">
@@ -25,14 +25,26 @@
               <li><a href="enhancements.php">Enhancements</a></li>
             </ul>
 
-            <button
-              class="main-btn contact-btn"
-              type="button"
-              aria-label="Contact Us"
-              onclick="window.location.href='mailto:105508266@student.swin.edu.au'"
-            >
-              Contact
-            </button>
+            <?php if (isset($page) && $page === 'manage'): ?>
+              <button
+                class="main-btn contact-btn"
+                type="button"
+                aria-label="Log Out"
+                onclick="window.location.href='logout.php'"
+              >
+                Log Out
+              </button>
+            <?php else: ?>
+              <button
+                class="main-btn contact-btn"
+                type="button"
+                aria-label="Contact Us"
+                onclick="window.location.href='mailto:105508266@student.swin.edu.au'"
+              >
+                Contact
+              </button>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
