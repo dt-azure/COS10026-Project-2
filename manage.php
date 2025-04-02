@@ -87,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
   <!-- Header -->
-  <?php 
-  include("./components/header.inc") 
+  <?php
+  include("./components/header.inc")
   ?>
 
   <!-- HR Manager Header Section -->
@@ -190,20 +190,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <button type='submit' class='main-btn delete-btn'>Delete</button>
             </form>
 
-            <form method='post' action='manage.php'>
-              <div class='dropdown'>
-                <button class='main-btn toggle-btn'>Change Status</button>
-                <div class='dropdown-content'>
-                  <div class='dropdown-content-container'>
+            <div class='dropdown'>
+              <button class='main-btn toggle-btn'>Change Status</button>
+              <div class='dropdown-content'>
+              <form method='post' action='manage.php'>
+                <div class='dropdown-content-container'>
                     <input type='hidden' name='update_eoi_num' value='{$row['eoi_num']}'>
                     <button type='submit' class='dropdown-btn main-btn' name='new_status' value='New'>New</button>
                     <button type='submit' class='dropdown-btn main-btn' name='new_status' value='Current'>Current</button>
                     <button type='submit' class='dropdown-btn main-btn' name='new_status' value='Final'>Final</button>
                     <button type='submit' class='dropdown-btn main-btn' name='new_status' value='Archived'>Archived</button>     
-                  </div>
-                </div>
+                    </div>
+                    </form>
               </div>
-            </form>
+            </div>
           </td>
         </tr>";
       }

@@ -51,6 +51,7 @@ ul, ol {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-wrap: nowrap;
 }
 
 .main-btn:hover {
@@ -1463,8 +1464,9 @@ summary:hover {
 }
 
 .manage-table .dropdown-content-container button:hover {
-    background-color: rgba(102, 102, 102, 0.5);
+    background-color: rgba(102, 102, 102, 1);
     border-color: #f5f6f9;
+    color: #ffff;
     z-index: 1000;
 }
 
