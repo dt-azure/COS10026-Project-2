@@ -7,7 +7,7 @@ const REGEX_DOB = "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/(\d{4})$/";
 // $regex_gender = ``;
 const REGEX_STREET = "/^.{1,40}$/";
 // $regex_town = ``;
-$VALID_STATES = ['VIC', 'NSW', 'QLD', 'NT', 'WA', 'SA', 'TAS', 'ACT'];
+$valid_states = ['VIC', 'NSW', 'QLD', 'NT', 'WA', 'SA', 'TAS', 'ACT'];
 const REGEX_POSTCODE = "/^[0-9]{4}$/";
 // PHP has built-in filter to sanitize emails: filter_var($str, FILTER_SANITIZE_EMAIL)
 // But we'll use regex to keep it consistent with other inputs
@@ -64,8 +64,8 @@ function validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $t
     }
 
     // User cannot change this input but it's applied validation just in case
-    global $VALID_STATES;
-    if (!in_array($state, $VALID_STATES)) {
+    global $valid_states;
+    if (!in_array($state, $valid_states)) {
         $err_msg[] = "<p class=\"err-msg\">Invalid State.</p>";
     }
 
