@@ -3,8 +3,7 @@
 const REGEX_JOB_REF_NUM = "/^[A-Za-z0-9]{5}$/";
 const REGEX_NAME = "/^[A-Za-z]{1,20}$/";
 // Basic regex, will not catch invalid dates like 30 Feb
-// Instruction is not really clear so assumption is any year with the last 2 digits between 15 and 80
-const REGEX_DOB = "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/(\d{2}(1[5-9]|[2-7][0-9]|80))$/";
+const REGEX_DOB = "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/(\d{4})$/";
 // $regex_gender = ``;
 const REGEX_STREET = "/^.{1,40}$/";
 // $regex_town = ``;
@@ -45,14 +44,15 @@ function validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $t
     }
 
     $dob_ts = strtotime($dob);
-	if (!$dob_ts) {
-		$err_msg[] = "<p class=\"err-msg\">Invalid Date of Birth format.</p>";
-	} else {
-		$age = (int)((time() - $dob_ts) / (365.25 * 24 * 60 * 60));
-		if ($age < 15 || $age > 80) {
-			$err_msg[] = "<p class=\"err-msg\">Invalid Date of Birth: must be 15–80 years old.</p>";
-		}
-	}
+    if (!preg_match(REGEX_DOB, $dob)) {
+        $err_msg[] = "<p class=\"err-msg\">Invalid Date of Birth format. $dob</p>";
+    }
+
+
+    $age = (int)((time() - $dob_ts) / (365.25 * 24 * 60 * 60));
+    if ($age < 15 || $age > 80) {
+        $err_msg[] = "<p class=\"err-msg\">Invalid Date of Birth: must be 15–80 years old. </p>";
+    }
 
 
     if (!preg_match(REGEX_STREET, $street)) {
@@ -64,10 +64,10 @@ function validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $t
     }
 
     // User cannot change this input but it's applied validation just in case
-	global $VALID_STATES;
+    global $VALID_STATES;
     if (!in_array($state, $VALID_STATES)) {
-		$err_msg[] = "<p class=\"err-msg\">Invalid State.</p>";
-	}
+        $err_msg[] = "<p class=\"err-msg\">Invalid State.</p>";
+    }
 
 
     if (!preg_match(REGEX_POSTCODE, $postcode)) {
@@ -106,8 +106,8 @@ function validate_input($job_ref_num, $first_name, $last_name, $dob, $street, $t
 
         $postcode_valid = false;
         foreach ($postcode_ranges as $range) {
-			$min = $range[0];
-			$max = $range[1];
+            $min = $range[0];
+            $max = $range[1];
 
             if ($postcode_int >= $min && $postcode_int <= $max) {
                 $postcode_valid = true;
@@ -147,7 +147,8 @@ function exit_page($dest, $msg, $origin, $dbconn = null)
     exit();
 }
 
-function format_date($date) {
+function format_date($date)
+{
     //If 01-Mar-05 or 01-Mar-2005
     if (preg_match('/^\d{1,2}-[A-Za-z]{3}-\d{2,4}$/', $date)) {
         $ts = strtotime($date);
@@ -160,11 +161,12 @@ function format_date($date) {
         return $parts[2] . '/' . $parts[1] . '/' . $parts[0];
     }
 
-    
+
     return $date;
 }
 
-function reset_session_with_exception() {
+function reset_session_with_exception()
+{
     $keys_to_keep = ["user_access", "last_login_attempt_time"];
     $_SESSION = array_intersect_key($_SESSION, array_flip($keys_to_keep));
 }

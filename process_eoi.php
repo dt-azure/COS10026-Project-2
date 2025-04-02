@@ -2,6 +2,7 @@
 session_start();
 require_once "settings.php";
 require_once "db_actions.php";
+require_once "util.php";
 
 // Prevent direct access to this file
 if ($_POST["job_ref"] == NULL) {
