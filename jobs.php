@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 // Prepare a secure SQL statement
 $sql = "SELECT job_ref_num, title, report_to, salary, brief_description, description, qualifications FROM jobs WHERE status = ?";
 $stmt = $conn->prepare($sql);
-$status = 'Up';
+$status = 'Ongoing';
 $stmt->bind_param("s", $status); // "s" = string type parameter
 
 // Execute query
