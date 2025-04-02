@@ -7,7 +7,7 @@ const REGEX_DOB = "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/(\d{4})$/";
 // $regex_gender = ``;
 const REGEX_STREET = "/^.{1,40}$/";
 // $regex_town = ``;
-const VALID_STATES = ['VIC', 'NSW', 'QLD', 'NT', 'WA', 'SA', 'TAS', 'ACT'];
+$VALID_STATES = ['VIC', 'NSW', 'QLD', 'NT', 'WA', 'SA', 'TAS', 'ACT'];
 const REGEX_POSTCODE = "/^[0-9]{4}$/";
 // PHP has built-in filter to sanitize emails: filter_var($str, FILTER_SANITIZE_EMAIL)
 // But we'll use regex to keep it consistent with other inputs
