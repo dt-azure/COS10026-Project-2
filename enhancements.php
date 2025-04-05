@@ -35,6 +35,8 @@
       <div class="section-content">
         <h2 class="section-header">Enhancements For the Website</h2>
 
+        <p>For details of PHP enhancements, click <a href="./phpenhancements.php">here.</a></p>
+
         <table>
           <thead>
             <tr>

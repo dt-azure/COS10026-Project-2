@@ -1337,11 +1337,16 @@ summary:hover {
 }
 
 .enhancements img {
-    max-width: 1200px;
+    max-width: 1000px;
+    margin: 15px 0;
 }
 
 .enhancements p {
     margin-bottom: 15px;
+}
+
+.enhancements a {
+    text-decoration: underline;
 }
 
 
@@ -1695,6 +1700,7 @@ summary:hover {
   }
 
   .back-home {
+    display: inline-block;
     margin-top: 15px;
   }
 
